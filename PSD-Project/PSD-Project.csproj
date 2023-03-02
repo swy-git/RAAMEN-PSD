@@ -129,7 +129,6 @@
     </Content>
     <Content Include="TEST\WebForm1.aspx" />
     <Content Include="Web.config" />
-    <Content Include="Login.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
@@ -148,13 +147,6 @@
       <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="User.cs" />
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
