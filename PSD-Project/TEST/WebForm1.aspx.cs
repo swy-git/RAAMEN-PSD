@@ -9,9 +9,11 @@ namespace PSD_Project.TEST
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
+        private readonly Raamen _db = new Raamen();
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            TestLabel.Text = _db.Roles.FirstOrDefault()?.name ?? "No Role found";
         }
     }
 }

@@ -2,9 +2,11 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
+using MySql.Data.EntityFramework;
 
 namespace PSD_Project
 {
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public partial class Raamen : DbContext
     {
         public Raamen()
