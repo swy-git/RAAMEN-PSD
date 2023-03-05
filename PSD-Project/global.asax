@@ -1,0 +1,1 @@
+<%@ Application Codebehind="Global.asax.cs" Inherits="PSD_Project.RaamenApp" Language="C#" %>
