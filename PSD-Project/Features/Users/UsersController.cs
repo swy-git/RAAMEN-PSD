@@ -7,39 +7,39 @@ namespace PSD_Project.Features.Users
 {
     public class UsersController : ApiController
     {
-        private readonly List<User> _users = new List<User>
-        {
-            new User
-            {
-                Id = 0,
-                Roleid = null,
-                Role = null,
-                Username = "test_1",
-                Email = "hi@1",
-                Gender = "",
-                Password = ""
-            },
-            new User
-            {
-                Id = 1,
-                Roleid = null,
-                Role = null,
-                Username = "test_2",
-                Email = "hi@2",
-                Gender = "",
-                Password = ""
-            }
-        };
+        private readonly Raamen _db = new Raamen();
 
-        public IEnumerable<User> GetAllUsers() => _users;
+        public IEnumerable<User> GetAllUsers()
+        {
+            return _db.Users
+                .Select(ConvertModel)
+                .ToList();
+        }
 
         public IHttpActionResult GetUser(int id)
         {
-            return _users.FirstOrDefault(u => u.Id == id)
+            return _db.Users
+                .FirstOrDefault(u => u.Id == id)
                 .ToOption()
+                .Map(ConvertModel)
                 .Map(Ok)
                 .Cast<IHttpActionResult>()
                 .OrElse(NotFound());
         }
+
+        public IEnumerable<User> GetUsersWithRole(int roleId)
+        {
+            return _db.Roles
+                .Where(role => role.id == roleId)
+                .Join(_db.Users,
+                    role => role.id,
+                    user => user.Roleid,
+                    (role, user) => user)
+                .AsEnumerable()
+                .Select(ConvertModel)
+                .ToList();
+        }
+
+        private User ConvertModel(PSD_Project.User user) => new User(user.Id, user.Username, user.Email, user.Gender);
     }
 }
