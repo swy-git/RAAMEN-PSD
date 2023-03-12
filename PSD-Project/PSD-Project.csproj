@@ -136,6 +136,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\Pages\Register.aspx" />
     <Content Include="App_Data\RAAMEN.mdf" />
     <Content Include="App_Data\RAAMEN_log.ldf">
       <DependentUpon>RAAMEN.mdf</DependentUpon>
@@ -145,6 +146,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\Pages\Register.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App\Pages\Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Detail.cs" />
