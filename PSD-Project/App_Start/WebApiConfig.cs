@@ -5,13 +5,9 @@ namespace PSD_Project
 {
     public static class WebApiConfig
     {
-        public static void RegisterRoutes(this HttpRouteCollection routes)
+        public static void RegisterRoutes(this HttpConfiguration config)
         {
-            routes.MapHttpRoute(
-                name: "API Default",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            config.MapHttpAttributeRoutes();
         }
     }
 }

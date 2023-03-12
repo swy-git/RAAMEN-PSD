@@ -5,17 +5,22 @@ using Util.Option;
 
 namespace PSD_Project.Features.Users
 {
+    [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
         private readonly Raamen _db = new Raamen();
 
+        [Route]
+        [HttpGet]
         public IEnumerable<User> GetAllUsers()
         {
             return _db.Users
                 .Select(ConvertModel)
                 .ToList();
         }
-
+        
+        [Route("{id}")]
+        [HttpGet]
         public IHttpActionResult GetUser(int id)
         {
             return _db.Users
@@ -27,7 +32,8 @@ namespace PSD_Project.Features.Users
                 .OrElse(NotFound());
         }
 
-        public IEnumerable<User> GetUsersWithRole(int roleId)
+        [HttpGet]
+        public IEnumerable<User> GetUsersWithRole([FromUri] int roleId)
         {
             return _db.Roles
                 .Where(role => role.id == roleId)

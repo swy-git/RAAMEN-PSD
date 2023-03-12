@@ -9,7 +9,8 @@ namespace PSD_Project
         protected void Application_Start(object sender, EventArgs e) 
         {
             var config = GlobalConfiguration.Configuration;
-            config.Routes.RegisterRoutes();
+            config.RegisterRoutes();
+            config.EnsureInitialized();
         }
     }
 }
