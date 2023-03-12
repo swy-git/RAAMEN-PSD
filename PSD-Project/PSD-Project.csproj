@@ -137,10 +137,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\Pages\Register.aspx" />
-    <Content Include="App_Data\RAAMEN.mdf" />
-    <Content Include="App_Data\RAAMEN_log.ldf">
-      <DependentUpon>RAAMEN.mdf</DependentUpon>
-    </Content>
     <Content Include="global.asax" />
     <Content Include="TEST\WebForm1.aspx" />
     <Content Include="Web.config" />
@@ -184,6 +180,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data" />
     <Folder Include="Features" />
   </ItemGroup>
   <ItemGroup>
