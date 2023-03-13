@@ -12,10 +12,12 @@
         <div>
             <asp:Label runat="server" Text="Username"></asp:Label>
             <asp:TextBox runat="server" Text="" ID="UsernameTextBox"></asp:TextBox>
+            <asp:Label runat="server" ID="UsernameErrorLabel"></asp:Label>
         </div>
         <div>
             <asp:Label runat="server" Text="Email"></asp:Label>
             <asp:TextBox runat="server" Text="" ID="EmailTextBox"></asp:TextBox>
+            <asp:Label runat="server" ID="EmailErrorLabel"></asp:Label>
         </div>
         <div>
             <asp:Label runat="server" Text="Gender"></asp:Label>
@@ -26,10 +28,12 @@
                     <asp:ListItem Text="Rather Not Say"/>
                 </asp:RadioButtonList>
             </div>
+            <asp:Label runat="server" ID="GenderErrorLabel"></asp:Label>
         </div>
         <div>
             <asp:Label runat="server" Text="Password"></asp:Label>
             <asp:TextBox runat="server" TextMode="Password" Text="" ID="PasswordTextBox"></asp:TextBox>
+            <asp:Label runat="server" ID="PasswordErrorLabel"></asp:Label>
         </div>
         <div>
             <asp:Label runat="server" Text="Confirm Password"></asp:Label>

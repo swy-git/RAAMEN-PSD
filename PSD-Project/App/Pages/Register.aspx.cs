@@ -1,5 +1,8 @@
 using System;
+using System.Linq;
 using System.Web.UI;
+using Util.Option;
+using Util.Try;
 
 namespace PSD_Project.App.Pages
 {
@@ -12,6 +15,48 @@ namespace PSD_Project.App.Pages
 
         protected void OnSubmitButtonClicked(object sender, EventArgs e)
         {
+            var usernameValidation = UsernameTextBox.Text
+                .Check(
+                    IsBetween5And15Characters,
+                    otherwise: _ => "must be between 5 and 15 characters")
+                .Bind(
+                    username => username.Check(
+                        IsAlphabetOrWhiteSpace,
+                        otherwise: _ => "can only contain alphabets and spaces"));
+
+            var emailValidation = EmailTextBox.Text
+                .Check(
+                    EndsWithDotCom,
+                    otherwise: _ => "must end with '.com'");
+            
+            var passwordValidation = PasswordTextBox.Text.Check(
+                password => password == ConfirmPasswordTextBox.Text,
+                otherwise: _ => "passwords do not match");
+
+            var genderValidation = GenderRadioButtons.SelectedItem
+                .Check(
+                    item => item != null,
+                    otherwise: _ => "must be chosen");
+            
+            UsernameErrorLabel.Text = usernameValidation.Err().OrElse("");
+            EmailErrorLabel.Text = emailValidation.Err().OrElse("");
+            GenderErrorLabel.Text = genderValidation.Err().OrElse("");
+            PasswordErrorLabel.Text = passwordValidation.Err().OrElse("");
+        }
+
+        private bool IsBetween5And15Characters(string str)
+        {
+            return str.Length >= 5 && str.Length <= 15;
+        }
+
+        private bool IsAlphabetOrWhiteSpace(string str)
+        {
+            return str.All(@char => char.IsLetter(@char) || char.IsWhiteSpace(@char));
+        }
+
+        private bool EndsWithDotCom(string str)
+        {
+            return str.EndsWith(".com");
         }
     }
 }
