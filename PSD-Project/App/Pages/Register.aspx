@@ -39,8 +39,8 @@
             <asp:Label runat="server" Text="Confirm Password"></asp:Label>
             <asp:TextBox runat="server" TextMode="Password" Text="" ID="ConfirmPasswordTextBox"></asp:TextBox>
         </div>
-        <asp:Label runat="server" ID="SelectedLabel"></asp:Label>
         <asp:Button runat="server" Text="Register" ID="SubmitButton" OnClick="OnSubmitButtonClicked"/>
+        <asp:Label runat="server" Text="" ID="RegisterResultLabel"></asp:Label>
     </div>
 </form>
 </body>

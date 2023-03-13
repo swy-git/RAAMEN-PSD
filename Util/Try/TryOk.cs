@@ -48,5 +48,15 @@ namespace Util.Try
         {
             return Option.Option.None<TErr>();
         }
+
+        public override bool IsOk()
+        {
+            return true;
+        }
+
+        public override bool IsErr()
+        {
+            return false;
+        }
     }
 }

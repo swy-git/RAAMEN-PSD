@@ -1,6 +1,13 @@
 using System;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.UI;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Util.Option;
 using Util.Try;
 
@@ -8,6 +15,28 @@ namespace PSD_Project.App.Pages
 {
     public partial class Register : Page
     {
+        [DataContract]
+        private class RegistrationFormDetails
+        {
+            [DataMember]
+            public readonly string Username;
+            [DataMember]
+            public readonly string Email;
+            [DataMember]
+            public readonly string Password;
+            [DataMember]
+            public readonly string Gender;
+
+            public RegistrationFormDetails(string username, string email, string password, string gender)
+            {
+                Username = username;
+                Email = email;
+                Password = password;
+                Gender = gender;
+            }
+        }
+        
+        private static readonly Uri UsersServiceUri = new Uri("http://localhost:5000/api/users");
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -42,6 +71,34 @@ namespace PSD_Project.App.Pages
             EmailErrorLabel.Text = emailValidation.Err().OrElse("");
             GenderErrorLabel.Text = genderValidation.Err().OrElse("");
             PasswordErrorLabel.Text = passwordValidation.Err().OrElse("");
+
+            if (usernameValidation.IsOk()
+                && emailValidation.IsOk()
+                && genderValidation.IsOk()
+                && passwordValidation.IsOk())
+            {
+                var formDetails = new RegistrationFormDetails(
+                    UsernameTextBox.Text,
+                    EmailTextBox.Text,
+                    PasswordTextBox.Text,
+                    GenderRadioButtons.SelectedItem.Value);
+                var json = JsonConvert.SerializeObject(formDetails, Formatting.None);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var post = RaamenApp.HttpClient.PostAsync(UsersServiceUri, content);
+                while (post.Status == TaskStatus.Running) {}
+                switch (post.Result.StatusCode)
+                {
+                    case HttpStatusCode.OK:
+                        RegisterResultLabel.Text = "User Successfully Created";
+                        break;
+                    case HttpStatusCode.Conflict:
+                        EmailErrorLabel.Text = "It seems this email has already been registered";
+                        break;
+                    default:
+                        RegisterResultLabel.Text = $"Oops. Something went wrong :( - {post.Result.StatusCode}";
+                        break;
+                }
+            }
         }
 
         private bool IsBetween5And15Characters(string str)

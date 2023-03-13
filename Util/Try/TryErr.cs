@@ -46,5 +46,15 @@ namespace Util.Try
         {
             return Option.Option.Some(_data);
         }
+
+        public override bool IsOk()
+        {
+            return false;
+        }
+
+        public override bool IsErr()
+        {
+            return true;
+        }
     }
 }

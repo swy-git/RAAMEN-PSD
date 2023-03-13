@@ -13,6 +13,8 @@ namespace Util.Try
         public abstract Try<TOut, TErr> Bind<TOut>(Func<T, Try<TOut, TErr>> f);
         public abstract Option<T> Ok();
         public abstract Option<TErr> Err();
+        public abstract bool IsOk();
+        public abstract bool IsErr();
     }
 
     public static class Try
